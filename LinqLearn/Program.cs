@@ -13,16 +13,22 @@ namespace LinqLearn
             TempData tempData = new TempData();
             FuncAndAction funcAndAction = new FuncAndAction();
             IEnumerable<TempData.Employee> temp = tempData.employees;
-            
             //Example of extension method
             int NumberOfEmployees = temp.Ext_Count();
             funcAndAction.actionToWriteStar();
 
+            List<string> selectedEmployeeIds=new List<string>();
+
             Console.WriteLine($"Number of employees are {NumberOfEmployees}");
             foreach (var q in temp)
             {
+                selectedEmployeeIds.Add(q.EmpID.ToString());
                 Console.WriteLine($"Employee name is {q.EmpName}\n");
             }
+
+            var SelectedEmployees = selectedEmployeeIds.Where(t => t.Contains("23")).Select(c => c.ToString()).ToList();
+            foreach (var s in SelectedEmployees)
+            { Console.WriteLine($"**{s}\n"); }
 
             //Example of Lambda expression
             var newTemp = temp.Where(t => t.EmpName.StartsWith('B'));
@@ -59,7 +65,6 @@ namespace LinqLearn
             funcAndAction.actionToWrite($"Square func for 10 is {funcAndAction.funcLambdaWithBody(10)}");
             
             Console.ReadLine();
-
         }
     }
 }
